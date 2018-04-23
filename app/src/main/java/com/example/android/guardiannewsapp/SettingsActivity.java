@@ -5,4 +5,5 @@ package com.example.android.guardiannewsapp;
  */
 
 public class SettingsActivity {
+    
 }
