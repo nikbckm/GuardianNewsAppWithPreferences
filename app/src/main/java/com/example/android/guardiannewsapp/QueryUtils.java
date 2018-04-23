@@ -166,6 +166,7 @@ public final class QueryUtils {
                 JSONObject currentArticle = results.getJSONObject(i);
 
                 String webTitle = currentArticle.getString("webTitle");
+                String sectionName = currentArticle.getString("sectionName");
                 String webPublicationDate = currentArticle.getString("webPublicationDate");
                 String[] webPublicationDateParts = webPublicationDate.split("T");
                 webPublicationDate = webPublicationDateParts[0]; // to just get the date without time
@@ -186,7 +187,7 @@ public final class QueryUtils {
                 }
 
                 // and url from the JSON response.
-                Article article = new Article(webTitle, webPublicationDate, author, webUrl);
+                Article article = new Article(webTitle, webPublicationDate, author, webUrl, sectionName);
 
                 // Add the new {@link Article} to the list of Articles.
                 articles.add(article);

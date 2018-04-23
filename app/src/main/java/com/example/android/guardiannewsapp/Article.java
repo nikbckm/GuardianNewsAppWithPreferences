@@ -10,12 +10,14 @@ public class Article {
     private String mDate;
     private String mTitle;
     private String mAuthor;
+    private String mSectionName;
 
-    public Article(String title, String date, String author, String url) {
+    public Article(String title, String date, String author, String url, String sectionName) {
         mTitle = title;
         mDate = date;
         mAuthor = author;
         mUrl = url;
+        mSectionName = sectionName;
     }
 
     public String getTitle() {
@@ -32,5 +34,9 @@ public class Article {
 
     public String getUrl() {
         return mUrl;
+    }
+
+    public String getSectionName() {
+        return mSectionName;
     }
 }

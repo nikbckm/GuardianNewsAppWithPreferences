@@ -48,6 +48,16 @@
             android:textSize="12sp"
             tools:text="Niklas Boeckmann" />
 
+            <TextView
+                android:id="@+id/article_section_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:paddingLeft="16dp"
+                android:textColor="@color/dateColor"
+                android:textSize="12sp"
+                tools:text="Niklas Boeckmann" />
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

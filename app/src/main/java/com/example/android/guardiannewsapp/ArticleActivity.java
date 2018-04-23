@@ -106,6 +106,9 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
             mAdapter.addAll(articles);
             View loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
+        } else {
+            TextView empty_view = findViewById(R.id.empty_view);
+            empty_view.setText(R.string.no_articles);
         }
     }
 

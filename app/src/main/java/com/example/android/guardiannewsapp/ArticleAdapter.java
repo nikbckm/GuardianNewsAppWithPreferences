@@ -44,13 +44,16 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         String date = currentArticle.getDate();
         String author = currentArticle.getAuthor();
         String title = currentArticle.getTitle();
+        String section = currentArticle.getSectionName();
 
         TextView title_textview = (TextView) listItemView.findViewById(R.id.article_title);
         TextView author_textview = (TextView) listItemView.findViewById(R.id.article_author);
         TextView date_textview = (TextView) listItemView.findViewById(R.id.article_date);
+        TextView article_section_textview = (TextView) listItemView.findViewById(R.id.article_section_name);
         title_textview.setText(title);
         author_textview.setText(author);
         date_textview.setText(date);
+        article_section_textview.setText(section);
 
 
         // Return the list item view that is now showing the appropriate data
