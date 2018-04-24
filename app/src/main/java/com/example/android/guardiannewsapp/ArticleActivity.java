@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,7 +29,8 @@ import java.util.List;
 public class ArticleActivity extends AppCompatActivity implements LoaderCallbacks<List<Article>> {
 
     // guardian url
-    private static final String GUARDIAN_URL = "https://content.guardianapis.com/search?&section=technology&show-tags=contributor&api-key=test";
+    //private static final String GUARDIAN_URL = "https://content.guardianapis.com/search?&section=technology&show-tags=contributor&api-key=test";
+    private static final String GUARDIAN_URL = "https://content.guardianapis.com/search?";
 
     // adapter
     private ArticleAdapter mAdapter;
@@ -88,11 +90,31 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
     }
 
     @Override
+    // onCreateLoader instantiates and returns a new Loader for the given ID
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
 
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        String topic = sharedPrefs.getString(
+                getString(R.string.settings_show_key),
+                getString(R.string.settings_show_default));
+
+
+        // parse breaks apart the URI string that's passed into its parameter
         Uri baseUri = Uri.parse(GUARDIAN_URL);
+
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
         Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // Append query parameter and its value. For example, the `format=geojson`
+        uriBuilder.appendQueryParameter("section", topic);
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("api-key", "test");
+
+        // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
         return new ArticleLoader(this, uriBuilder.toString());
+
     }
 
     @Override
@@ -117,5 +139,26 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
     }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
 }
