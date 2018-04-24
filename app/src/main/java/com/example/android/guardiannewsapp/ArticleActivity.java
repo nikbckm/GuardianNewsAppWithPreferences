@@ -29,7 +29,6 @@ import java.util.List;
 public class ArticleActivity extends AppCompatActivity implements LoaderCallbacks<List<Article>> {
 
     // guardian url
-    //private static final String GUARDIAN_URL = "https://content.guardianapis.com/search?&section=technology&show-tags=contributor&api-key=test";
     private static final String GUARDIAN_URL = "https://content.guardianapis.com/search?";
 
     // adapter
@@ -101,18 +100,20 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
                 getString(R.string.settings_show_default));
 
 
+
         // parse breaks apart the URI string that's passed into its parameter
         Uri baseUri = Uri.parse(GUARDIAN_URL);
 
         // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        // Append query parameter and its value. For example, the `format=geojson`
+        // Append query parameter and its value.
         uriBuilder.appendQueryParameter("section", topic);
         uriBuilder.appendQueryParameter("show-tags", "contributor");
         uriBuilder.appendQueryParameter("api-key", "test");
 
-        // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
+        // Return the completed uri
+        // "https://content.guardianapis.com/search?&section=technology&show-tags=contributor&api-key=test";
         return new ArticleLoader(this, uriBuilder.toString());
 
     }
